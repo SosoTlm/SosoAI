@@ -1,1 +1,150 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Conversations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 60px 20px 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        #conversationList {
+            border: 1px solid #ddd;
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AI Conversations</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#conversations">Conversations</a></li>
+                <li><a href="#settings">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="home">
+            <h2>Welcome to AI Conversations</h2>
+            <p>Use this tool to interact with Vercel and ElevenLabs AI services.</p>
+        </section>
+        <section id="conversations">
+            <h2>Conversations</h2>
+            <div id="conversationList">
+                <!-- Conversations will be dynamically inserted here -->
+            </div>
+            <button id="fetchConversations">Load Conversations</button>
+        </section>
+        <section id="settings">
+            <h2>Settings</h2>
+            <p>Adjust your preferences here.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 AI Conversations. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('fetchConversations').addEventListener('click', fetchConversations);
+        });
+
+        async function fetchConversations() {
+            try {
+                const response = await fetch('https://your-vercel-api-endpoint/conversations', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer au_vrcel277893987278827777f199488e7578299'
+                    }
+                });
+                const data = await response.json();
+                displayConversations(data);
+            } catch (error) {
+                console.error('Error fetching conversations:', error);
+            }
+        }
+
+        function displayConversations(conversations) {
+            const conversationList = document.getElementById('conversationList');
+            conversationList.innerHTML = '';
+
+            conversations.forEach(conversation => {
+                const div = document.createElement('div');
+                div.classList.add('conversation');
+                div.innerHTML = `<p><strong>AI:</strong> ${conversation.response}</p>`;
+                conversationList.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>

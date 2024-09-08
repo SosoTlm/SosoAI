@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            background-color: #f4f4f4;
         }
 
         header {
@@ -21,6 +21,7 @@
             width: 100%;
             top: 0;
             left: 0;
+            z-index: 1000;
         }
 
         header h1 {
@@ -48,7 +49,7 @@
         }
 
         main {
-            padding: 60px 20px 20px;
+            padding: 80px 20px 20px;
         }
 
         section {
@@ -60,6 +61,14 @@
             padding: 10px;
             max-height: 300px;
             overflow-y: auto;
+            background-color: #fff;
+        }
+
+        .conversation {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
         button {
@@ -80,6 +89,9 @@
             color: #fff;
             padding: 10px;
             text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
         }
     </style>
 </head>
@@ -105,6 +117,8 @@
                 <!-- Conversations will be dynamically inserted here -->
             </div>
             <button id="fetchConversations">Load Conversations</button>
+            <textarea id="userInput" placeholder="Type your message here..." rows="3" style="width: 100%; margin-top: 10px;"></textarea>
+            <button id="sendMessage" style="margin-top: 10px;">Send Message</button>
         </section>
         <section id="settings">
             <h2>Settings</h2>
@@ -117,6 +131,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('fetchConversations').addEventListener('click', fetchConversations);
+            document.getElementById('sendMessage').addEventListener('click', sendMessage);
         });
 
         async function fetchConversations() {
@@ -131,6 +146,27 @@
                 displayConversations(data);
             } catch (error) {
                 console.error('Error fetching conversations:', error);
+            }
+        }
+
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            if (!userInput.trim()) return;
+
+            try {
+                const response = await fetch('https://au_vrcel277893987278827777f199488e7578299/message', { // Update this endpoint as needed
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer sk_ff7399513c51a31036fc152d529db02e01d63454bd8f995a',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: userInput })
+                });
+                const data = await response.json();
+                displayConversations([data]);
+                document.getElementById('userInput').value = ''; // Clear input field
+            } catch (error) {
+                console.error('Error sending message:', error);
             }
         }
 

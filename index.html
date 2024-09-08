@@ -6,15 +6,16 @@
     <title>AI Conversations</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            color: #fff;
         }
 
         header {
-            background-color: #333;
+            background: rgba(0, 0, 0, 0.6);
             color: #fff;
             padding: 1em;
             position: fixed;
@@ -22,26 +23,33 @@
             top: 0;
             left: 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
             margin: 0;
-            font-size: 1.5em;
+            font-size: 1.8em;
+            font-weight: bold;
         }
 
         nav ul {
             list-style: none;
             padding: 0;
+            margin: 0;
+            display: flex;
         }
 
         nav ul li {
-            display: inline;
-            margin-right: 10px;
+            margin-left: 20px;
         }
 
         nav ul li a {
             color: #fff;
             text-decoration: none;
+            font-weight: bold;
         }
 
         nav ul li a:hover {
@@ -50,53 +58,78 @@
 
         main {
             padding: 80px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         section {
+            width: 100%;
+            max-width: 800px;
             margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         }
 
-        #conversationList {
-            border: 1px solid #ddd;
-            padding: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-            background-color: #fff;
+        h2 {
+            margin-top: 0;
+            font-size: 1.5em;
         }
 
-        .conversation {
-            margin-bottom: 10px;
+        textarea {
+            width: calc(100% - 20px);
             padding: 10px;
-            border: 1px solid #ddd;
+            border: none;
             border-radius: 5px;
+            margin-top: 10px;
+            background: #fff;
+            color: #333;
+            font-size: 1em;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            resize: vertical;
         }
 
         button {
             padding: 10px 20px;
-            background-color: #007BFF;
+            background: #007BFF;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-top: 10px;
+            font-size: 1em;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(1);
+        }
+
+        audio {
+            display: block;
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 5px;
+            background: #333;
+            padding: 10px;
         }
 
         footer {
-            background-color: #333;
+            background: rgba(0, 0, 0, 0.6);
             color: #fff;
             padding: 10px;
             text-align: center;
             position: fixed;
             width: 100%;
             bottom: 0;
-        }
-
-        audio {
-            display: block;
-            margin-top: 10px;
+            backdrop-filter: blur(10px);
         }
     </style>
 </head>
@@ -106,7 +139,7 @@
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#conversations">Conversations</a></li>
+                <li><a href="#conversations">Text-to-Speech</a></li>
                 <li><a href="#settings">Settings</a></li>
             </ul>
         </nav>
@@ -118,7 +151,7 @@
         </section>
         <section id="conversations">
             <h2>Text-to-Speech</h2>
-            <textarea id="userInput" placeholder="Type your message here..." rows="3" style="width: 100%;"></textarea>
+            <textarea id="userInput" placeholder="Type your message here..."></textarea>
             <button id="convertToSpeech">Convert to Speech</button>
             <div id="audioContainer">
                 <!-- Audio will be dynamically inserted here -->

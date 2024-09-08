@@ -121,6 +121,19 @@
             padding: 10px;
         }
 
+        .download-link {
+            display: block;
+            margin-top: 10px;
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .download-link:hover {
+            text-decoration: underline;
+        }
+
         footer {
             background: rgba(0, 0, 0, 0.6);
             color: #fff;
@@ -194,7 +207,10 @@
 
         function displayAudio(audioUrl) {
             const audioContainer = document.getElementById('audioContainer');
-            audioContainer.innerHTML = `<audio controls src="${audioUrl}"></audio>`;
+            audioContainer.innerHTML = `
+                <audio controls src="${audioUrl}"></audio>
+                <a href="${audioUrl}" download="output.mp3" class="download-link">Download Audio</a>
+            `;
         }
     </script>
 </body>
